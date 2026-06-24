@@ -125,6 +125,21 @@
   .method-tip { margin-top: 14px; background: var(--amber-light); border-radius: 10px;
                 padding: 10px 14px; font-size: 13px; color: #92400e; }
 
+  /* ── Testimonials marquee ── */
+  .marquee { overflow: hidden; padding: 6px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+  .marquee + .marquee { margin-top: 14px; }
+  .marquee-track { display: flex; gap: 14px; width: max-content; animation: scroll 70s linear infinite; }
+  .marquee.rev .marquee-track { animation-direction: reverse; animation-duration: 85s; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .tcard { flex: 0 0 268px; background: var(--card); border: 0.5px solid var(--border);
+           border-radius: 14px; padding: 16px 18px; }
+  .tcard .stars { color: var(--amber); font-size: 13px; letter-spacing: 1px; }
+  .tcard p { font-size: 13.5px; color: #444; line-height: 1.6; margin: 6px 0; }
+  .tcard .who { font-size: 13px; font-weight: 700; color: var(--blue); }
+
   /* ── Billing toggle ── */
   .toggle-wrap { display: flex; margin-bottom: 28px; }
   .toggle { display: flex; background: #e9e9ec; border-radius: 30px; padding: 3px; gap: 2px; }
@@ -377,6 +392,16 @@
 
 <hr>
 
+<!-- 真實分享（跑馬燈） -->
+<div class="wrap" style="padding-bottom:32px;">
+  <p class="label" style="text-align:center;">真實分享</p>
+  <p class="title" style="text-align:center;">他們，都讓響我幫忙記得</p>
+  <p class="subtitle" style="text-align:center;">滑鼠移上去可暫停閱讀</p>
+</div>
+<div class="marquee"><div class="marquee-track" id="mq1"></div></div>
+<div class="marquee rev"><div class="marquee-track" id="mq2"></div></div>
+<div style="height:48px;"></div>
+
 <!-- 價值訴求 -->
 <div class="wrap">
   <div style="background:linear-gradient(135deg,#EFF6FF,#FEF9EC);border:1px solid var(--border);
@@ -550,6 +575,36 @@ function set(t) {
     document.getElementById('n'+i).textContent = d.n[i];
   });
 }
+
+/* 用戶分享 — 示意樣本，正式上線請替換為真實見證 */
+const TESTIMONIALS = [
+  { w: "林媽媽",   q: "每天提醒我女兒吃過敏藥，再也沒漏過，好安心。" },
+  { w: "陳爸爸",   q: "開車時用講的就能設提醒，雙手不用離開方向盤。" },
+  { w: "王同學",   q: "補習、考試、繳報告，響我全幫我記得，超神。" },
+  { w: "張伯伯",   q: "我看不懂 App，打一通電話就會提醒我回診。" },
+  { w: "李阿姨",   q: "血壓藥早晚各一次，時間到電話就響，比鬧鐘有用。" },
+  { w: "周奶奶",   q: "孫子幫我設好，時間到電話打來，聽得很清楚。" },
+  { w: "黃阿公",   q: "沒接到還會再打三次，我慢慢走去接也來得及。" },
+  { w: "吳小姐",   q: "會議前十分鐘來電提醒，再也沒遲到過。" },
+  { w: "蔡老師",   q: "家長會、改考卷期限，一句話交給響我就好。" },
+  { w: "劉先生",   q: "跑業務的行程全靠它，拜訪客戶不再漏接。" },
+  { w: "鄭護理師", q: "輪班作息亂，吃飯睡覺都靠響我提醒我。" },
+  { w: "許媽媽",   q: "繳學費、打疫苗，孩子的事一件都沒漏掉。" },
+  { w: "謝爺爺",   q: "子女在國外，響我每天提醒我量血糖。" },
+  { w: "郭太太",   q: "水電瓦斯到期前提醒，再也不怕被斷話。" },
+  { w: "何同學",   q: "早八起不來，響我打電話比鬧鐘狠，真的有效！" },
+  { w: "曾阿嬤",   q: "不用學手機，講一句話就好，連我都會用。" },
+  { w: "簡老闆",   q: "員工生日、進貨日期，響我幫我記得清清楚楚。" },
+  { w: "馮小姐",   q: "懷孕後產檢、吃葉酸的時間，響我全程提醒。" },
+  { w: "宋先生",   q: "照顧失智的母親，吃藥時間都靠響我盯著。" },
+  { w: "潘同學",   q: "社團、打工、報告，行程再多也不怕忘。" }
+];
+(function () {
+  const card = t => `<div class="tcard"><div class="stars">★★★★★</div><p>「${t.q}」</p><span class="who">— ${t.w}</span></div>`;
+  const a = TESTIMONIALS.slice(0, 10), b = TESTIMONIALS.slice(10);
+  const fill = (id, arr) => { const el = document.getElementById(id); if (el) el.innerHTML = [...arr, ...arr].map(card).join(''); };
+  fill('mq1', a); fill('mq2', b);
+})();
 </script>
 </body>
 </html>
