@@ -108,6 +108,23 @@
   .vcard-dl:hover { opacity: .85; }
   .vcard-dl.soon { background: #E5E7EB; color: #9CA3AF; pointer-events: none; }
 
+  /* ── Usage methods ── */
+  .method { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
+            padding: 26px 24px; margin-bottom: 16px; }
+  .method.phone { border-left: 4px solid var(--blue); }
+  .method.line { border-left: 4px solid #06C755; }
+  .method-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+  .method-icon { font-size: 26px; width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+                 display: flex; align-items: center; justify-content: center; background: #EFF6FF; }
+  .method.line .method-icon { background: #E7F9EF; }
+  .method-head h3 { font-size: 18px; font-weight: 800; }
+  .method-head p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .method-steps { margin: 0; padding-left: 20px; font-size: 14.5px; color: #444; line-height: 1.5; }
+  .method-steps li { padding: 5px 0; }
+  .method-steps b { color: var(--text); }
+  .method-tip { margin-top: 14px; background: var(--amber-light); border-radius: 10px;
+                padding: 10px 14px; font-size: 13px; color: #92400e; }
+
   /* ── Billing toggle ── */
   .toggle-wrap { display: flex; margin-bottom: 28px; }
   .toggle { display: flex; background: #e9e9ec; border-radius: 30px; padding: 3px; gap: 2px; }
@@ -194,31 +211,61 @@
   </svg>
 </div>
 
-<!-- 使用方式 -->
+<!-- 關於 -->
 <div class="wrap">
-  <p class="label">使用方式</p>
-  <p class="title">三步驟，提醒設好了</p>
-  <p class="subtitle">不用下載 App——用 LINE 或直接打電話都可以</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>加 LINE 或打電話</h3>
-      <p>加入「響我 RingMe」LINE 官方帳號，或直接撥打響我專線</p>
-      <p style="margin-top:8px;">
-        🇹🇼 免付費專線：<a href="tel:0800053535" style="color:var(--blue);font-weight:700;">0800-053535</a><br>
-        🌏 國際專線：<a href="tel:+18585339892" style="color:var(--blue);font-weight:600;">+1 (858) 533-9892</a>
-      </p>
+  <p class="label">關於響我</p>
+  <p class="title">重要的事，交給響我提醒</p>
+  <p style="font-size:15.5px;color:#444;line-height:1.95;max-width:680px;">
+    響我 RingMe 是專為台灣打造的 AI 語音提醒服務。不用下載 App、不用學複雜操作——
+    打一通電話，或在 LINE 傳一句話，就能設好提醒。時間到，響我會主動打電話或傳 LINE 給你，
+    用自然的真人聲音，讓你不再忘記吃藥、開會、繳費這些重要的事。
+  </p>
+  <p style="font-size:15.5px;color:#444;line-height:1.95;max-width:680px;margin-top:14px;">
+    我們特別為長輩、忙碌的上班族與照顧者設計：開口說就能用，而且提醒是用「打電話」的方式送到，
+    比一般訊息更難被忽略。讓科技用最簡單的方式，照顧你和你在乎的人。
+  </p>
+</div>
+
+<hr>
+
+<!-- 使用方法 -->
+<div class="wrap">
+  <p class="label">使用方法</p>
+  <p class="title">兩種方式，挑你順手的</p>
+  <p class="subtitle">不用下載 App。電話最直接，LINE 最方便。</p>
+
+  <!-- 電話（上） -->
+  <div class="method phone">
+    <div class="method-head">
+      <span class="method-icon">📞</span>
+      <div>
+        <h3>用電話設提醒</h3>
+        <p>免付費，開口說就好——最適合長輩，或開車、雙手忙碌的時候</p>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>一句話設好提醒</h3>
-      <p>傳訊息或用說的：「明天早上九點提醒我吃藥」，AI 自動聽懂</p>
+    <ol class="method-steps">
+      <li>撥打免付費專線 <b>0800-053535</b></li>
+      <li>聽到問候後，直接說：「明天早上八點提醒我開會」</li>
+      <li>一通電話可連設多筆（輕響 3 筆 / 暢響 5 筆 / 全響 10 筆），說「沒有了」就掛斷</li>
+      <li>時間到，響我從 <b>02-8192-0080</b> 打電話來，用真人語音提醒你</li>
+    </ol>
+    <p class="method-tip">💡 把「響我」存進手機通訊錄（見下方聯絡卡），來電就會顯示「響我」，不會是陌生號碼。</p>
+  </div>
+
+  <!-- LINE（下） -->
+  <div class="method line">
+    <div class="method-head">
+      <span class="method-icon">💬</span>
+      <div>
+        <h3>用 LINE 設提醒</h3>
+        <p>打字或傳語音都可以——適合日常的小提醒</p>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>時間到，響我叫你</h3>
-      <p>打電話給你，或傳 LINE 語音訊息——用你選的聲音個性提醒你</p>
-    </div>
+    <ol class="method-steps">
+      <li>加入官方帳號 <b>@363pbwdw</b>（或掃下方 QR Code）</li>
+      <li>傳訊息或語音：「五分鐘後提醒我吃藥」</li>
+      <li>時間到，響我用 LINE 語音 + 文字訊息提醒你</li>
+    </ol>
   </div>
 </div>
 
@@ -348,7 +395,7 @@
       <p class="plan-price" id="p0">NT$990<small>/年</small></p>
       <p class="plan-note" id="n0">等於每月 NT$82.5，省 NT$198</p>
       <ul class="plan-feats">
-        <li>LINE 提醒：每月 50 則</li>
+        <li>LINE 提醒：每月 25 次</li>
         <li class="hi">電話提醒：每月 15 通</li>
         <li>每通電話最多設 3 筆</li>
         <li>AI 智能解析</li>
@@ -363,7 +410,7 @@
       <p class="plan-price" id="p1">NT$1,990<small>/年</small></p>
       <p class="plan-note" id="n1">等於每月 NT$165.8，省 NT$398</p>
       <ul class="plan-feats">
-        <li>LINE 提醒：每月 120 則</li>
+        <li>LINE 提醒：每月 60 次</li>
         <li class="hi">電話提醒：每月 35 通</li>
         <li>每通電話最多設 5 筆</li>
         <li>週期性提醒</li>
@@ -378,7 +425,7 @@
       <p class="plan-price" id="p2">NT$3,990<small>/年</small></p>
       <p class="plan-note" id="n2">等於每月 NT$332.5，省 NT$798</p>
       <ul class="plan-feats">
-        <li>LINE 提醒：每月 200 則</li>
+        <li>LINE 提醒：每月 100 次</li>
         <li class="hi">電話提醒：每月 80 通</li>
         <li>每通電話最多設 10 筆</li>
         <li>週期性提醒</li>
@@ -389,7 +436,7 @@
     </div>
   </div>
 
-  <div class="notice">每月額度用完後：電話提醒每通 NT$5、LINE 提醒每則 NT$1，或自動改用較省的管道。LINE 適合日常小提醒，重要的事建議用電話——時間到真人來電叫醒你。</div>
+  <div class="notice">每月額度用完後：電話提醒每通 NT$5、LINE 提醒每次 NT$2，或自動改用較省的管道。LINE 適合日常小提醒，重要的事建議用電話——時間到真人來電叫醒你。</div>
 </div>
 
 <hr>
