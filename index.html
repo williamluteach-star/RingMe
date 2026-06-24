@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>響我 RingMe — AI 語音提醒服務</title>
+<style>
+  :root {
+    --blue: #2563EB;
+    --blue-dark: #1D4ED8;
+    --blue-deep: #1e3a8a;
+    --amber: #F59E0B;
+    --amber-light: #FEF9EC;
+    --amber-mid: #FDE68A;
+    --text: #111827;
+    --muted: #6B7280;
+    --border: rgba(0,0,0,.08);
+    --bg: #F9F8F5;
+    --card: #fff;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 60%, #3B82F6 100%);
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    padding: 64px 24px 0;
+  }
+  .hero-text { flex: 1 1 0; padding-bottom: 64px; z-index: 2; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+    border-radius: 30px; padding: 5px 16px; font-size: 13px; font-weight: 500;
+    letter-spacing: .4px; margin-bottom: 22px;
+  }
+  .hero-tag .dot { width: 7px; height: 7px; background: var(--amber);
+    border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.6; transform:scale(1.3); } }
+  .hero h1 { font-size: clamp(32px, 5.5vw, 56px); font-weight: 800;
+    line-height: 1.12; margin-bottom: 18px; letter-spacing: -.02em; }
+  .hero h1 span { color: var(--amber-mid); }
+  .hero p { font-size: clamp(15px, 2vw, 18px); opacity: .88; max-width: 420px; margin-bottom: 32px; }
+  .hero-cta {
+    display: inline-block; background: var(--amber); color: #5a3a00;
+    font-size: 15px; font-weight: 700; padding: 13px 30px; border-radius: 50px;
+    text-decoration: none; box-shadow: 0 4px 18px rgba(245,158,11,.45);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .hero-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(245,158,11,.55); }
+  .hero-mascot { flex: 0 0 380px; height: 420px; position: relative; align-self: flex-end; overflow: hidden; }
+  .hero-mascot img { position: absolute; bottom: 0; left: 0; width: 760px; max-width: none;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,.25)); }
+  @media(max-width:680px){
+    .hero-inner { flex-direction: column; }
+    .hero-text { padding-bottom: 32px; }
+    .hero-mascot { flex: none; width: 100%; height: 240px; }
+    .hero-mascot img { width: 100%; bottom: 0; height: 240px; object-fit: cover; object-position: left bottom; position: absolute; }
+  }
+
+  /* ── Wave divider ── */
+  .wave { display: block; width: 100%;
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 60%, #3B82F6 100%); line-height: 0; }
+  .wave svg { display: block; width: 100%; height: 54px; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 56px 20px; }
+  .label { font-size: 11px; font-weight: 700; color: var(--blue);
+           letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+  .title { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; }
+  .step { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
+          padding: 28px 20px; text-align: center; transition: box-shadow .2s, transform .2s; }
+  .step:hover { box-shadow: 0 4px 20px rgba(37,99,235,.1); transform: translateY(-2px); }
+  .step-num { width: 42px; height: 42px; background: var(--blue); color: #fff; border-radius: 50%;
+              display: flex; align-items: center; justify-content: center; font-weight: 800;
+              font-size: 17px; margin: 0 auto 14px; box-shadow: 0 4px 14px rgba(37,99,235,.3); }
+  .step h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); }
+
+  /* ── Contact / vCard cards ── */
+  .vcards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  @media(max-width:640px){ .vcards { grid-template-columns: 1fr; } }
+  .vcard { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
+           padding: 24px 18px; text-align: center; transition: box-shadow .2s, transform .2s; }
+  .vcard:hover { box-shadow: 0 4px 20px rgba(37,99,235,.12); transform: translateY(-2px); }
+  .vcard-avatar { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; margin: 0 auto 14px;
+                  border: 3px solid #fff; box-shadow: 0 4px 16px rgba(37,99,235,.18); background: #EFF6FF; }
+  .vcard-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .vcard-avatar.placeholder { display:flex; align-items:center; justify-content:center;
+                  font-size: 34px; color: #93C5FD; background: linear-gradient(135deg,#EFF6FF,#FEF9EC); }
+  .vcard h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .vcard-tel { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .vcard-tel b { color: var(--text); font-weight: 600; }
+  .vcard-dl { display: block; background: var(--blue); color: #fff; text-decoration: none;
+              font-size: 13.5px; font-weight: 700; padding: 10px 0; border-radius: 10px; transition: opacity .15s; }
+  .vcard-dl:hover { opacity: .85; }
+  .vcard-dl.soon { background: #E5E7EB; color: #9CA3AF; pointer-events: none; }
+
+  /* ── Billing toggle ── */
+  .toggle-wrap { display: flex; margin-bottom: 28px; }
+  .toggle { display: flex; background: #e9e9ec; border-radius: 30px; padding: 3px; gap: 2px; }
+  .t-btn { padding: 7px 20px; border: none; background: transparent; cursor: pointer;
+           border-radius: 27px; font-size: 13px; font-weight: 500; color: var(--muted); transition: all .18s; }
+  .t-btn.on { background: #fff; color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+
+  /* ── Plans ── */
+  .plans { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  @media(max-width:640px){ .plans { grid-template-columns: 1fr; } }
+  .plan { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
+          padding: 24px 20px; position: relative; }
+  .plan.star { border: 2px solid var(--blue); }
+  .star-badge { position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+                background: var(--amber); color: #5a3a00; font-size: 11px; font-weight: 700;
+                padding: 3px 12px; border-radius: 20px; white-space: nowrap; }
+  .plan-name { font-size: 14px; font-weight: 500; color: var(--muted); }
+  .plan-price { font-size: 32px; font-weight: 800; margin: 8px 0 2px; }
+  .plan-price small { font-size: 14px; font-weight: 400; color: var(--muted); }
+  .plan-note { font-size: 12px; color: var(--blue); font-weight: 600; min-height: 18px; margin-bottom: 16px; }
+  .plan-feats { list-style: none; font-size: 13px; color: #555; }
+  .plan-feats li { padding: 5px 0; border-bottom: 0.5px solid #f0f0f0; }
+  .plan-feats li:last-child { border: none; }
+  .plan-feats li::before { content: "✓ "; color: var(--blue); font-weight: 800; }
+  .plan-feats li.hi::before { content: "★ "; color: var(--amber); }
+  .plan-cta { display: block; text-align: center; margin-top: 16px; background: var(--blue); color: #fff;
+              text-decoration: none; font-size: 14px; font-weight: 700; padding: 11px 0; border-radius: 10px; transition: opacity .15s; }
+  .plan-cta:hover { opacity: .85; }
+  .plan-cta.ghost { background: #fff; color: var(--blue); border: 1.5px solid var(--blue); }
+
+  .pay-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 12px; }
+  .pay-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
+              padding: 16px 18px; display: flex; align-items: center; gap: 10px; font-size: 14px;
+              font-weight: 500; transition: box-shadow .2s; }
+  .pay-card:hover { box-shadow: 0 3px 12px rgba(37,99,235,.1); }
+  .pay-icon { font-size: 22px; }
+
+  .info-table { width: 100%; border-collapse: collapse; background: var(--card);
+                border-radius: var(--radius); overflow: hidden; border: 0.5px solid var(--border); }
+  .info-table tr { border-bottom: 0.5px solid #f0f0f0; }
+  .info-table tr:last-child { border: none; }
+  .info-table td { padding: 14px 20px; font-size: 14px; vertical-align: top; }
+  .info-table td:first-child { color: var(--muted); width: 130px; white-space: nowrap; }
+  .info-table td:last-child { font-weight: 500; }
+
+  .notice { background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 0 10px 10px 0;
+            padding: 12px 16px; font-size: 13px; color: #92400e; margin-top: 20px; }
+
+  hr { border: none; border-top: 0.5px solid var(--border); margin: 0; }
+
+  .mascot-strip { background: linear-gradient(to right, #EFF6FF, #FEFCE8);
+    border-top: 0.5px solid var(--border); padding: 48px 20px; text-align: center; }
+  .mascot-avatar { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px;
+    border: 3px solid #fff; box-shadow: 0 4px 20px rgba(37,99,235,.18); }
+  .mascot-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .mascot-strip p { font-size: 15px; color: var(--muted); }
+  .mascot-strip strong { color: var(--text); }
+
+  footer { text-align: center; padding: 28px 20px; font-size: 12px; color: #bbb; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        響我 RingMe · 上線中
+      </div>
+      <h1>再也不怕<br><span>忘東忘西</span></h1>
+      <p>AI 語音提醒服務。LINE 傳一句話、或打通電話，時間到響我就打給你。</p>
+      <a class="hero-cta" href="https://line.me/R/ti/p/@363pbwdw" target="_blank">立即加入 LINE 好友 →</a>
+    </div>
+    <div class="hero-mascot">
+      <img src="mascot.jpg" alt="響我 RingDog 吉祥物">
+    </div>
+  </div>
+</div>
+<div class="wave">
+  <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,54 L0,22 C200,50 400,4 720,28 C1040,52 1280,6 1440,20 L1440,54 Z" fill="#F9F8F5"/>
+  </svg>
+</div>
+
+<!-- 使用方式 -->
+<div class="wrap">
+  <p class="label">使用方式</p>
+  <p class="title">三步驟，提醒設好了</p>
+  <p class="subtitle">不用下載 App——用 LINE 或直接打電話都可以</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>加 LINE 或打電話</h3>
+      <p>加入「響我 RingMe」LINE 官方帳號，或直接撥打響我專線</p>
+      <p style="margin-top:8px;">
+        🇹🇼 免付費專線：<a href="tel:0800053535" style="color:var(--blue);font-weight:700;">0800-053535</a><br>
+        🌏 國際專線：<a href="tel:+18585339892" style="color:var(--blue);font-weight:600;">+1 (858) 533-9892</a>
+      </p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>一句話設好提醒</h3>
+      <p>傳訊息或用說的：「明天早上九點提醒我吃藥」，AI 自動聽懂</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>時間到，響我叫你</h3>
+      <p>打電話給你，或傳 LINE 語音訊息——用你選的聲音個性提醒你</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- 存進手機（聯絡卡下載） -->
+<div class="wrap">
+  <p class="label">存進手機</p>
+  <p class="title">把「響我」存進通訊錄</p>
+  <p class="subtitle">這樣響我打給你時，手機會顯示「響我 RingMe」而不是陌生號碼。挑一個喜歡的頭像，點一下就能存。</p>
+  <div class="vcards">
+    <div class="vcard">
+      <div class="vcard-avatar"><img src="avatar-shiba.jpg" alt="柴犬 RingDog"></div>
+      <h3>柴犬 RingDog</h3>
+      <p class="vcard-tel">撥打設定：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <a class="vcard-dl" href="ringme-shiba.vcf" download>下載聯絡卡</a>
+    </div>
+    <div class="vcard">
+      <div class="vcard-avatar placeholder">👩</div>
+      <h3>女孩頭像</h3>
+      <p class="vcard-tel">撥打設定：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <a class="vcard-dl soon">頭像準備中</a>
+    </div>
+    <div class="vcard">
+      <div class="vcard-avatar placeholder">🦸</div>
+      <h3>超級英雄頭像</h3>
+      <p class="vcard-tel">撥打設定：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <a class="vcard-dl soon">頭像準備中</a>
+    </div>
+  </div>
+  <div class="notice">撥打 <b>0800-053535</b>（免付費）即可設定提醒；<b>02-8192-0080</b> 是響我打給你時的來電顯示號碼。存進通訊錄，提醒來電一眼就認得。</div>
+</div>
+
+<hr>
+
+<!-- 一通電話設多筆提醒 -->
+<div class="wrap">
+  <p class="label">一通電話，搞定多件事</p>
+  <p class="title">不用掛掉再打，一口氣說完</p>
+  <p class="subtitle">系統確認後會繼續問你，說「沒有了」就掛斷</p>
+
+  <div style="max-width:520px;margin:32px auto 0;display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="background:#007AFF;color:#fff;padding:11px 16px;border-radius:18px 18px 4px 18px;font-size:15px;max-width:78%;line-height:1.5;">
+        明天八點叫我起床
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-end;">
+      <div style="width:32px;height:32px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:1px solid #DBEAFE;">響</div>
+      <div style="background:#F3F4F6;color:#1a1a1a;padding:11px 16px;border-radius:18px 18px 18px 4px;font-size:15px;max-width:78%;line-height:1.5;">
+        好的，明天早上八點，我會打電話提醒你：起床。<br>
+        <strong>還有其他要提醒的事嗎？</strong>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="background:#007AFF;color:#fff;padding:11px 16px;border-radius:18px 18px 4px 18px;font-size:15px;max-width:78%;line-height:1.5;">
+        五分鐘後提醒我吃藥
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-end;">
+      <div style="width:32px;height:32px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:1px solid #DBEAFE;">響</div>
+      <div style="background:#F3F4F6;color:#1a1a1a;padding:11px 16px;border-radius:18px 18px 18px 4px;font-size:15px;max-width:78%;line-height:1.5;">
+        好的，五分鐘後，我會打電話提醒你：吃藥。<br>
+        <strong>還有其他要提醒的事嗎？</strong>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="background:#007AFF;color:#fff;padding:11px 16px;border-radius:18px 18px 4px 18px;font-size:15px;max-width:78%;line-height:1.5;">
+        沒有了，謝謝
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-end;">
+      <div style="width:32px;height:32px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:1px solid #DBEAFE;">響</div>
+      <div style="background:#F3F4F6;color:#1a1a1a;padding:11px 16px;border-radius:18px 18px 18px 4px;font-size:15px;max-width:78%;line-height:1.5;">
+        好的，所有提醒都設好了，再見！
+      </div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:#aaa;padding:4px 0;">通話結束</div>
+  </div>
+
+  <div style="max-width:520px;margin:24px auto 0;background:#F9FAFB;border-radius:12px;padding:16px 20px;font-size:13px;color:#666;line-height:1.8;border:1px solid #F0F0F0;">
+    說「<strong style="color:#333;">沒有</strong>」「<strong style="color:#333;">不用</strong>」「<strong style="color:#333;">掰掰</strong>」「<strong style="color:#333;">謝謝</strong>」「<strong style="color:#333;">no</strong>」等都會觸發道別。
+    沉默超過 12 秒系統會再問一次，再沒有回應才掛斷。
+    每通電話可連設的筆數依方案不同（輕響 3 筆 / 暢響 5 筆 / 全響 10 筆）。
+  </div>
+</div>
+
+<hr>
+
+<!-- 定價 -->
+<div class="wrap">
+  <p class="label">訂閱方案</p>
+  <p class="title">月繳或年繳，年繳省兩個月</p>
+  <p class="subtitle">LINE 提醒無限使用，電話提醒每月有額度。7 天免費試用，試用期間不扣款。</p>
+
+  <div class="toggle-wrap">
+    <div class="toggle">
+      <button class="t-btn" onclick="set('m')">月繳</button>
+      <button class="t-btn on" onclick="set('y')">年繳 ← 省2個月</button>
+    </div>
+  </div>
+
+  <div class="plans">
+    <!-- 輕響版 Lite -->
+    <div class="plan">
+      <p class="plan-name">輕響版 &nbsp;·&nbsp; Lite</p>
+      <p class="plan-price" id="p0">NT$990<small>/年</small></p>
+      <p class="plan-note" id="n0">等於每月 NT$82.5，省 NT$198</p>
+      <ul class="plan-feats">
+        <li class="hi">LINE 提醒：無限</li>
+        <li>電話提醒：每月 15 通</li>
+        <li>每通電話最多設 3 筆</li>
+        <li>AI 智能解析</li>
+        <li>6 種聲音選擇</li>
+      </ul>
+      <a class="plan-cta ghost" href="https://line.me/R/ti/p/@363pbwdw" target="_blank">開始 7 天免費試用</a>
+    </div>
+    <!-- 暢響版 Plus（推薦） -->
+    <div class="plan star">
+      <span class="star-badge">最受歡迎</span>
+      <p class="plan-name">暢響版 &nbsp;·&nbsp; Plus</p>
+      <p class="plan-price" id="p1">NT$1,990<small>/年</small></p>
+      <p class="plan-note" id="n1">等於每月 NT$165.8，省 NT$398</p>
+      <ul class="plan-feats">
+        <li class="hi">LINE 提醒：無限</li>
+        <li>電話提醒：每月 35 通</li>
+        <li>每通電話最多設 5 筆</li>
+        <li>週期性提醒</li>
+        <li>AI 智能解析</li>
+        <li>6 種聲音選擇</li>
+      </ul>
+      <a class="plan-cta" href="https://line.me/R/ti/p/@363pbwdw" target="_blank">開始 7 天免費試用</a>
+    </div>
+    <!-- 全響版 Max -->
+    <div class="plan">
+      <p class="plan-name">全響版 &nbsp;·&nbsp; Max</p>
+      <p class="plan-price" id="p2">NT$3,990<small>/年</small></p>
+      <p class="plan-note" id="n2">等於每月 NT$332.5，省 NT$798</p>
+      <ul class="plan-feats">
+        <li class="hi">LINE 提醒：無限</li>
+        <li>電話提醒：每月 80 通</li>
+        <li>每通電話最多設 10 筆</li>
+        <li>週期性提醒</li>
+        <li>AI 智能解析</li>
+        <li>6 種聲音選擇</li>
+      </ul>
+      <a class="plan-cta ghost" href="https://line.me/R/ti/p/@363pbwdw" target="_blank">開始 7 天免費試用</a>
+    </div>
+  </div>
+
+  <div class="notice">「電話提醒」指響我實際撥電話通知你。超出每月額度後，每筆 NT$5，或自動改用 LINE 提醒（不額外收費）。LINE 提醒所有方案皆無限使用。</div>
+</div>
+
+<hr>
+
+<!-- 付款方式 -->
+<div class="wrap">
+  <p class="label">付款方式</p>
+  <p class="title">支援多種台灣常用付款</p>
+  <p class="subtitle">信用卡定期定額自動扣款，也支援 LINE Pay</p>
+  <div class="pay-grid">
+    <div class="pay-card"><span class="pay-icon">💳</span>信用卡（定期定額）</div>
+    <div class="pay-card"><span class="pay-icon">🟢</span>LINE Pay</div>
+    <div class="pay-card"><span class="pay-icon">🍎</span>Apple Pay</div>
+    <div class="pay-card"><span class="pay-icon">🏦</span>ATM 轉帳</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- 商家資訊 -->
+<div class="wrap">
+  <p class="label">商家資訊</p>
+  <p class="title">服務基本資料</p>
+  <p class="subtitle">供金流業者審核用</p>
+  <table class="info-table">
+    <tr><td>服務名稱</td><td>響我 RingMe — AI 語音提醒服務</td></tr>
+    <tr><td>服務類型</td><td>線上訂閱制 SaaS（Software as a Service）</td></tr>
+    <tr><td>服務內容</td>
+        <td>透過 LINE 官方帳號與電話語音提供 AI 提醒功能。用戶以訊息或電話傳送提醒需求，AI 解析時間與事項，於指定時間以 LINE 語音訊息或電話提醒用戶。</td></tr>
+    <tr><td>收費模式</td><td>月繳或年繳訂閱制，信用卡定期定額自動扣款</td></tr>
+    <tr><td>收費金額</td>
+        <td>月繳：NT$99 / NT$199 / NT$399<br>年繳：NT$990 / NT$1,990 / NT$3,990</td></tr>
+    <tr><td>預估月交易</td><td>NT$50,000 以下（初期）</td></tr>
+    <tr><td>退款政策</td>
+        <td>7 天免費試用，試用期間可隨時取消不收費。試用後付款不退款，可取消下一期自動續費。</td></tr>
+    <tr><td>服務地區</td><td>台灣（主要），未來擴展至日本、東南亞</td></tr>
+    <tr><td>服務管道</td><td>LINE 官方帳號與電話（純線上，無實體店面）</td></tr>
+  </table>
+</div>
+
+<!-- 吉祥物結尾 -->
+<div class="mascot-strip">
+  <div class="mascot-avatar">
+    <img src="avatar-shiba.jpg" alt="RingDog">
+  </div>
+  <p><strong>響我 RingMe</strong> — 你的 AI 語音提醒小幫手<br>永遠準時，永遠不讓你忘記重要的事 🔔</p>
+</div>
+
+<hr>
+
+<!-- 消費者權益 & 客服 -->
+<div class="wrap">
+  <p class="label">消費者權益</p>
+  <p class="title">服務條款與隱私權政策</p>
+  <table class="info-table" style="margin-bottom:24px;">
+    <tr>
+      <td>客服聯絡</td>
+      <td><a href="tel:0988285256" style="color:var(--blue);font-weight:700;">0988-285-256</a>（週一至週五 10:00–18:00）<br>客服信箱：<a href="mailto:williamluteach@gmail.com" style="color:var(--blue);">williamluteach@gmail.com</a></td>
+    </tr>
+    <tr>
+      <td>退款政策</td>
+      <td>7 天免費試用，試用期間可隨時取消，不收任何費用。訂閱付款後不提供退款，但可於下一計費週期前取消自動續費。</td>
+    </tr>
+    <tr>
+      <td>服務條款</td>
+      <td>訂閱即表示同意本服務條款。本服務保留隨時修改、暫停或終止服務的權利，並提前以 LINE 訊息通知用戶。</td>
+    </tr>
+    <tr>
+      <td>隱私權政策</td>
+      <td>本服務僅蒐集提供提醒功能所必要的資訊（LINE 用戶識別碼、提醒內容、性別及年齡）。所有資料均不對外出售或提供給第三方，並依台灣個人資料保護法規定處理。</td>
+    </tr>
+    <tr>
+      <td>資料刪除</td>
+      <td>用戶可隨時透過客服電話或 LINE 訊息要求刪除個人資料，本服務將於 7 個工作日內完成刪除。</td>
+    </tr>
+    <tr>
+      <td>適用法律</td>
+      <td>本服務依中華民國法律規範，如有爭議以台灣台北地方法院為第一審管轄法院。</td>
+    </tr>
+  </table>
+</div>
+
+<footer>© 2026 響我 RingMe · 純線上服務，無實體店面 · 客服：0988-285-256 · williamluteach@gmail.com</footer>
+
+<script>
+const M = { p: ['NT$99','NT$199','NT$399'], n: ['','',''] };
+const Y = {
+  p: ['NT$990','NT$1,990','NT$3,990'],
+  n: ['等於每月 NT$82.5，省 NT$198','等於每月 NT$165.8，省 NT$398','等於每月 NT$332.5，省 NT$798']
+};
+const u = { m: '/月', y: '/年' };
+function set(t) {
+  document.querySelectorAll('.t-btn').forEach((b,i) => b.classList.toggle('on', t==='m'?i===0:i===1));
+  const d = t==='m' ? M : Y;
+  [0,1,2].forEach(i => {
+    document.getElementById('p'+i).innerHTML = d.p[i]+'<small>'+u[t]+'</small>';
+    document.getElementById('n'+i).textContent = d.n[i];
+  });
+}
+</script>
+</body>
+</html>
