@@ -380,7 +380,7 @@
     <p style="font-size:clamp(19px,3vw,24px);font-weight:800;line-height:1.4;margin-bottom:10px;">
       一個月 NT$99，等於請了一位<br>24 小時待命的提醒祕書 🔔</p>
     <p style="font-size:15px;color:var(--muted);max-width:520px;margin:0 auto;">
-      一天不到 <b style="color:var(--text);">NT$3.3</b>，比一杯手搖飲還便宜。
+      一天不到 <b style="color:var(--text);">NT$3.3</b>，比一顆茶葉蛋還便宜。
       重要的事不用自己記、不怕漏接——交給響我就好。</p>
   </div>
 </div>
@@ -394,7 +394,7 @@
   <p class="subtitle">AI 助理來電叫醒你，比訊息更難被忽略，漏接自動連打三次。月繳或年繳，年繳省兩個月。7 天免費試用，試用期間不扣款。</p>
 
   <div class="toggle-wrap">
-    <div class="toggle">
+    <div class="toggle" id="phoneToggle">
       <button class="t-btn on" onclick="set('m')">月繳</button>
       <button class="t-btn" onclick="set('y')">年繳 ← 省2個月</button>
     </div>
@@ -518,14 +518,21 @@
 <div class="wrap">
   <p class="label" style="color:#06A047;">💬 LINE 訂閱</p>
   <p class="title">LINE 提醒方案</p>
-  <p class="subtitle">日常的小提醒，用 LINE 就夠——一天 NT$1.6 起，最輕鬆的入門選擇。7 天免費試用，試用期間不扣款。</p>
+  <p class="subtitle">日常的小提醒，用 LINE 就夠——銅板價入門，年繳再省兩個月。7 天免費試用，試用期間不扣款。</p>
+
+  <div class="toggle-wrap">
+    <div class="toggle" id="lineToggle">
+      <button class="t-btn on" onclick="setL('m')">月繳</button>
+      <button class="t-btn" onclick="setL('y')">年繳 ← 省2個月</button>
+    </div>
+  </div>
 
   <div class="plans">
     <!-- LINE 輕訊 -->
     <div class="plan">
       <p class="plan-name">LINE &nbsp;·&nbsp; 輕訊</p>
-      <p class="plan-price">NT$49<small>/月</small></p>
-      <p class="plan-note">一天約 NT$1.6</p>
+      <p class="plan-price" id="lp0">NT$49<small>/月</small></p>
+      <p class="plan-note" id="ln0">💰 銅板價・一天約 NT$1.6</p>
       <ul class="plan-feats">
         <li class="hi">LINE 提醒 60 則／月 *</li>
         <li>語音 + 文字訊息</li>
@@ -537,8 +544,8 @@
     <div class="plan star" style="border-color:#06C755;">
       <span class="star-badge" style="background:#06C755;color:#fff;">最受歡迎</span>
       <p class="plan-name">LINE &nbsp;·&nbsp; 暢訊</p>
-      <p class="plan-price">NT$99<small>/月</small></p>
-      <p class="plan-note">一天約 NT$3.3</p>
+      <p class="plan-price" id="lp1">NT$99<small>/月</small></p>
+      <p class="plan-note" id="ln1">一天約 NT$3.3</p>
       <ul class="plan-feats">
         <li class="hi">LINE 提醒 160 則／月 *</li>
         <li>語音 + 文字訊息</li>
@@ -550,8 +557,8 @@
     <!-- LINE 全訊 -->
     <div class="plan">
       <p class="plan-name">LINE &nbsp;·&nbsp; 全訊</p>
-      <p class="plan-price">NT$159<small>/月</small></p>
-      <p class="plan-note">一天約 NT$5.3</p>
+      <p class="plan-price" id="lp2">NT$159<small>/月</small></p>
+      <p class="plan-note" id="ln2">一天約 NT$5.3</p>
       <ul class="plan-feats">
         <li class="hi">LINE 提醒 320 則／月 *</li>
         <li>語音 + 文字訊息</li>
@@ -594,7 +601,7 @@
         <td>透過 LINE 官方帳號與電話語音提供 AI 提醒功能。用戶以訊息或電話傳送提醒需求，AI 解析時間與事項，於指定時間以 LINE 語音訊息或電話提醒用戶。</td></tr>
     <tr><td>收費模式</td><td>月繳或年繳訂閱制，信用卡定期定額自動扣款</td></tr>
     <tr><td>收費金額</td>
-        <td>月繳：NT$99 / NT$199 / NT$399<br>年繳：NT$990 / NT$1,990 / NT$3,990</td></tr>
+        <td>電話方案：月繳 NT$99 / 199 / 399；年繳 NT$990 / 1,990 / 3,990<br>LINE 方案：月繳 NT$49 / 99 / 159；年繳 NT$490 / 990 / 1,590</td></tr>
     <tr><td>預估月交易</td><td>NT$50,000 以下（初期）</td></tr>
     <tr><td>退款政策</td>
         <td>7 天免費試用，試用期間可隨時取消不收費。試用後付款不退款，可取消下一期自動續費。</td></tr>
@@ -657,11 +664,23 @@ const Y = {
 };
 const u = { m: '/月', y: '/年' };
 function set(t) {
-  document.querySelectorAll('.t-btn').forEach((b,i) => b.classList.toggle('on', t==='m'?i===0:i===1));
+  document.querySelectorAll('#phoneToggle .t-btn').forEach((b,i) => b.classList.toggle('on', t==='m'?i===0:i===1));
   const d = t==='m' ? M : Y;
   [0,1,2].forEach(i => {
     document.getElementById('p'+i).innerHTML = d.p[i]+'<small>'+u[t]+'</small>';
     document.getElementById('n'+i).textContent = d.n[i];
+  });
+}
+
+/* LINE 訂閱 月/年切換 */
+const LM = { p: ['NT$49','NT$99','NT$159'], n: ['💰 銅板價・一天約 NT$1.6','一天約 NT$3.3','一天約 NT$5.3'] };
+const LY = { p: ['NT$490','NT$990','NT$1,590'], n: ['等於每月 NT$40.8，省 NT$98','等於每月 NT$82.5，省 NT$198','等於每月 NT$132.5，省 NT$318'] };
+function setL(t) {
+  document.querySelectorAll('#lineToggle .t-btn').forEach((b,i) => b.classList.toggle('on', t==='m'?i===0:i===1));
+  const d = t==='m' ? LM : LY;
+  [0,1,2].forEach(i => {
+    document.getElementById('lp'+i).innerHTML = d.p[i]+'<small>'+u[t]+'</small>';
+    document.getElementById('ln'+i).textContent = d.n[i];
   });
 }
 
