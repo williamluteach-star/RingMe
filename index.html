@@ -63,9 +63,9 @@
     filter: drop-shadow(0 8px 32px rgba(0,0,0,.25)); }
   @media(max-width:680px){
     .hero-inner { flex-direction: column; }
-    .hero-text { padding-bottom: 32px; }
-    .hero-mascot { flex: none; width: 100%; height: 240px; }
-    .hero-mascot img { width: 100%; bottom: 0; height: 240px; object-fit: cover; object-position: left bottom; position: absolute; }
+    .hero-text { padding-bottom: 24px; }
+    .hero-mascot { flex: none; width: 100%; height: auto; overflow: visible; }
+    .hero-mascot img { position: static; width: 100%; height: auto; max-width: none; border-radius: 14px; }
   }
 
   /* ── Wave divider ── */
@@ -262,6 +262,7 @@
     <ol class="method-steps">
       <li>撥打免付費專線 <b>0800-053535</b>（鈴我，響我響我）</li>
       <li>聽到問候後，直接說：「明天早上八點提醒我開會」</li>
+      <li>想換聲音？通話中說一句「<b>換成男生的聲音</b>」或「<b>換成女生的聲音</b>」就好（共 6 種聲音）</li>
       <li>一通電話可連設多筆（輕響 3 筆 / 暢響 5 筆 / 全響 10 筆），說「沒有了」就掛斷</li>
       <li>時間到，響我 RingMe從 <b>02-8192-0080</b> 打電話來，用 AI 助理的聲音提醒你</li>
     </ol>
@@ -631,12 +632,11 @@
 <div class="wrap">
   <p class="label">付款方式</p>
   <p class="title">支援多種台灣常用付款</p>
-  <p class="subtitle">信用卡定期定額自動扣款，也支援 LINE Pay</p>
+  <p class="subtitle">透過藍新金流安全結帳，訂閱採信用卡定期定額自動續扣，iOS 可用 Apple Pay</p>
   <div class="pay-grid">
     <div class="pay-card"><span class="pay-icon">💳</span>信用卡（定期定額）</div>
+    <div class="pay-card"><span class="pay-icon">🍎</span>Apple Pay</div>
     <div class="pay-card"><span class="pay-icon">🟢</span>LINE Pay（申請中）</div>
-    <div class="pay-card"><span class="pay-icon">🍎</span>Apple Pay（申請中）</div>
-    <div class="pay-card"><span class="pay-icon">🏦</span>ATM 轉帳</div>
   </div>
 </div>
 
@@ -657,7 +657,7 @@
         <td>電話方案：月繳 NT$99 / 199 / 399；年繳 NT$990 / 1,990 / 3,990<br>LINE 方案：月繳 NT$49 / 99 / 159；年繳 NT$490 / 990 / 1,590</td></tr>
     <tr><td>預估月交易</td><td>NT$50,000 以下（初期）</td></tr>
     <tr><td>退款政策</td>
-        <td>7 天免費試用，試用期間可隨時取消不收費。試用後付款不退款，可取消下一期自動續費。</td></tr>
+        <td>先 7 天免費試用（免付款）。訂閱後 7 天內不滿意、且用量在合理範圍（電話 ≤3 通／LINE ≤10 則）可全額退款。隨時可取消自動續費，服務到當期結束；年繳中途取消退剩餘完整月份費用。</td></tr>
     <tr><td>服務地區</td><td>台灣（主要），未來擴展至日本、東南亞</td></tr>
     <tr><td>服務管道</td><td>LINE 官方帳號與電話（純線上，無實體店面）</td></tr>
   </table>
@@ -686,7 +686,7 @@
     </tr>
     <tr>
       <td>退款政策</td>
-      <td>7 天免費試用，試用期間可隨時取消，不收任何費用。訂閱付款後不提供退款，但可於下一計費週期前取消自動續費。</td>
+      <td>先 7 天免費試用（免付款）。訂閱後 7 天內不滿意、且用量在合理範圍（電話 ≤3 通／LINE ≤10 則）可全額退款。隨時可取消自動續費，服務到當期結束；年繳中途取消退剩餘完整月份費用。</td>
     </tr>
     <tr>
       <td>服務條款</td>
