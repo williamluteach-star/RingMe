@@ -197,7 +197,7 @@
   .label { font-size: 11px; font-weight: 700; color: var(--blue);
            letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
   .title { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
-  .subtitle { color: var(--muted); font-size: 16px; margin-bottom: 32px; } .hero-ctas { display:flex; gap:12px; flex-wrap:wrap; } .hero-cta.line { background:#06C755; color:#fff; box-shadow:0 4px 18px rgba(6,199,85,.4); } .hero-cta.line:hover { box-shadow:0 6px 22px rgba(6,199,85,.55); } .hero-promo { display:inline-block; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); color:#FDE68A; font-size:14px; font-weight:700; border-radius:20px; padding:6px 14px; margin-bottom:18px; } .promo-ribbon { background:linear-gradient(90deg,#FEF3C7,#FDE68A); color:#92400E; font-weight:700; font-size:15px; border-radius:12px; padding:12px 16px; margin-bottom:20px; }
+  .subtitle { color: var(--muted); font-size: 16px; margin-bottom: 32px; } .hero-ctas { display:flex; gap:12px; flex-wrap:wrap; } .hero-cta.line { background:#06C755; color:#fff; box-shadow:0 4px 18px rgba(6,199,85,.4); } .hero-cta.line:hover { box-shadow:0 6px 22px rgba(6,199,85,.55); } .hero-promo { display:inline-block; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); color:#FDE68A; font-size:14px; font-weight:700; border-radius:20px; padding:6px 14px; margin-bottom:18px; } .promo-ribbon { background:linear-gradient(90deg,#FEF3C7,#FDE68A); color:#92400E; font-weight:700; font-size:15px; border-radius:12px; padding:12px 16px; margin-bottom:20px; } .trust-chips { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 22px; } .chip { background:#EFF6FF; color:#1D4ED8; font-size:14px; font-weight:600; border:1px solid #BFDBFE; border-radius:20px; padding:7px 14px; } .founder-card { background:var(--card); border:0.5px solid var(--border); border-radius:14px; padding:20px 22px; max-width:680px; } .founder-card p { font-size:15.5px; color:#374151; line-height:1.9; margin:0; } .founder-card .founder-sign { margin-top:10px; color:var(--blue); font-weight:700; font-size:14px; } .sticky-cta { display:none; } @media(max-width:640px){ body { padding-bottom:64px; } .sticky-cta { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:99; background:#fff; box-shadow:0 -2px 12px rgba(0,0,0,.12); padding:8px 10px; gap:8px; } .s-btn { flex:1; text-align:center; font-size:15px; font-weight:700; padding:11px 0; border-radius:10px; text-decoration:none; } .s-btn.s-phone { background:var(--amber); color:#4A2F00; } .s-btn.s-plan { background:var(--blue); color:#fff; } }
 
   .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; }
   .step { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius);
@@ -367,6 +367,28 @@
 
 <hr>
 
+<!-- 信任與創辦人 -->
+<div class="wrap">
+  <p class="label">為什麼可以放心</p>
+  <h2 class="title">台灣在地打造，收費透明</h2>
+  <div class="trust-chips">
+    <span class="chip">🔒 藍新金流安全結帳</span>
+    <span class="chip">📞 中華電信電信級語音線路</span>
+    <span class="chip">💚 LINE 官方帳號</span>
+    <span class="chip">🇹🇼 台灣開發・個資法保護</span>
+  </div>
+  <!-- 💡 William：下面這段「創辦人的話」歡迎改成你自己的故事，越真實越有力 -->
+  <div class="founder-card">
+    <p>「做響我的初衷很簡單：手機通知太容易被滑掉，但電話響起，你一定會接。
+    長輩不用學新 App、子女不用再擔心爸媽忘記吃藥——重要的事，值得用最直接的方式提醒。
+    這個服務由我在台灣一行程式、一通電話慢慢打磨，你的每一則回饋我都會親自看。」</p>
+    <p class="founder-sign">— 響我 RingMe 創辦人</p>
+  </div>
+</div>
+
+
+<hr>
+
 <!-- 使用方法 -->
 <div class="wrap">
   <p class="label">使用方法</p>
@@ -533,7 +555,7 @@
 <hr>
 
 <!-- 定價：電話訂閱 -->
-<div class="wrap">
+<div class="wrap" id="pricing">
   <p class="label">📞 電話訂閱</p>
   <h2 class="title">電話提醒方案</h2>
   <p class="subtitle">AI 助理來電叫醒你，比訊息更難被忽略。月繳或年繳，年繳省兩個月。先免費試用 7 天（不用信用卡）；訂閱後 7 天內不滿意，合理用量內全額退款。</p> <div class="promo-ribbon">🎁 新朋友限定：加官方 LINE 好友，訂閱首月 5 折</div>
@@ -635,21 +657,7 @@
 
 <hr>
 
-<!-- 用 LINE 輸入也可以 -->
-<div class="wrap">
-  <p class="label" style="color:#06A047;">LINE 也能設</p>
-  <h2 class="title">用 LINE 輸入，也可以</h2>
-  <p class="subtitle">打字傳一句話，響我 RingMe就記下來；時間到用語音＋文字提醒你。</p>
-  <div style="max-width:460px;margin:28px auto 0;background:linear-gradient(#a6cae3,#bcd6ea);border-radius:18px;padding:18px 14px;display:flex;flex-direction:column;gap:10px;">
-    <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="avatar-shiba.jpg" alt="響我 RingMe 柴犬頭像" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div><div style="background:#fff;color:#1a1a1a;padding:10px 14px;border-radius:4px 16px 16px 16px;font-size:14.5px;max-width:80%;line-height:1.55;">👋 嗨！我是你的私人提醒助理，先選一個喜歡的聲音吧！</div></div>
-    <div style="display:flex;justify-content:flex-end;"><div style="background:#06C755;color:#fff;padding:10px 14px;border-radius:16px 4px 16px 16px;font-size:14.5px;max-width:80%;line-height:1.55;">選擇陽光男聲</div></div>
-    <div style="display:flex;justify-content:flex-end;"><div style="background:#06C755;color:#fff;padding:10px 14px;border-radius:16px 4px 16px 16px;font-size:14.5px;max-width:80%;line-height:1.55;">提醒我兩分鐘後倒垃圾</div></div>
-    <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="avatar-shiba.jpg" alt="響我 RingMe 柴犬頭像" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div><div style="background:#fff;color:#1a1a1a;padding:10px 14px;border-radius:4px 16px 16px 16px;font-size:14.5px;max-width:80%;line-height:1.55;">好的！我會在 <strong>20:59</strong> 提醒你：<strong>倒垃圾</strong> 🗑️</div></div>
-    <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="avatar-shiba.jpg" alt="響我 RingMe 柴犬頭像" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div><div style="background:#fff;color:#1a1a1a;padding:10px 14px;border-radius:4px 16px 16px 16px;font-size:14.5px;max-width:80%;line-height:1.55;">▶　<span style="color:#06A047;font-weight:600;">語音訊息</span>　「嘿嘿，該倒垃圾囉，動起來超棒的！」</div></div>
-  </div>
-</div>
 
-<hr>
 
 <!-- 定價：LINE 訂閱 -->
 <div class="wrap">
@@ -806,28 +814,7 @@
   </details>
 </div>
 
-<hr>
 
-<!-- 商家資訊 -->
-<div class="wrap">
-  <p class="label">商家資訊</p>
-  <h2 class="title">服務基本資料</h2>
-  <p class="subtitle">供金流業者審核用</p>
-  <table class="info-table">
-    <tr><td>服務名稱</td><td>響我 RingMe — AI 語音提醒服務</td></tr>
-    <tr><td>服務類型</td><td>線上訂閱制 SaaS（Software as a Service）</td></tr>
-    <tr><td>服務內容</td>
-        <td>透過 LINE 官方帳號與電話語音提供 AI 提醒功能。用戶以訊息或電話傳送提醒需求，AI 解析時間與事項，於指定時間以 LINE 語音訊息或電話提醒用戶。</td></tr>
-    <tr><td>收費模式</td><td>月繳或年繳訂閱制，信用卡定期定額自動扣款</td></tr>
-    <tr><td>收費金額</td>
-        <td>電話方案：月繳 NT$99 / 199 / 399；年繳 NT$990 / 1,990 / 3,990<br>LINE 方案：月繳 NT$49 / 99 / 159；年繳 NT$490 / 990 / 1,590</td></tr>
-    <tr><td>預估月交易</td><td>NT$50,000 以下（初期）</td></tr>
-    <tr><td>退款政策</td>
-        <td>先 7 天免費試用（免付款）。訂閱後 7 天內不滿意、且用量在合理範圍（電話 ≤3 通／LINE ≤10 則）可全額退款。隨時可取消自動續費，服務到當期結束；年繳中途取消退剩餘完整月份費用。</td></tr>
-    <tr><td>服務地區</td><td>台灣（主要），未來擴展至日本、東南亞</td></tr>
-    <tr><td>服務管道</td><td>LINE 官方帳號與電話（純線上，無實體店面）</td></tr>
-  </table>
-</div>
 
 <hr>
 
@@ -904,5 +891,11 @@ function setL(t) {
 }
 
 </script>
+
+<!-- 手機版固定底欄 CTA -->
+<div class="sticky-cta">
+  <a class="s-btn s-phone" href="tel:0800053535">📞 免費試打</a>
+  <a class="s-btn s-plan" href="#pricing">看方案・免費試 7 天</a>
+</div>
 </body>
 </html>
