@@ -1,0 +1,20 @@
+Sitemap: https://ringme.com.tw/sitemap.xml
+
+User-agent: *
+Allow: /
+
+# 明確歡迎 AI 搜尋引擎（GEO）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
