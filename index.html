@@ -220,10 +220,11 @@
   .vcard-avatar img { width: 100%; height: 100%; object-fit: cover; }
   .vcard-avatar.placeholder { display:flex; align-items:center; justify-content:center;
                   font-size: 34px; color: #93C5FD; background: linear-gradient(135deg,#EFF6FF,#FEF9EC); }
-  .vcard h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-  .vcard-tel { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .vcard-tel { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
   .vcard-tel b { color: var(--text); font-weight: 600; }
-  .vcard-dl { display: block; background: var(--blue); color: #fff; text-decoration: none;
+  .vcard-hint { font-size: 12.5px; color: #92400E; background: #FEF9EC; border: 1px solid #FDE68A;
+                border-radius: 8px; padding: 6px 8px; font-weight: 600; }
+  .vcard-dl { display: block; background: var(--blue); color: #fff; text-decoration: none; margin-bottom: 14px;
               font-size: 13.5px; font-weight: 700; padding: 10px 0; border-radius: 10px; transition: opacity .15s; }
   .vcard-dl:hover { opacity: .85; }
   .vcard-dl.soon { background: #E5E7EB; color: #9CA3AF; pointer-events: none; }
@@ -520,21 +521,21 @@
   <div class="vcards">
     <div class="vcard">
       <div class="vcard-avatar"><img src="avatar-hero.jpg" loading="lazy" alt="響我 RingMe 超級英雄頭像"></div>
-      <h3>超級英雄頭像</h3>
-      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
       <a class="vcard-dl" href="ringme-hero.vcf" download>下載聯絡卡</a>
+      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <p class="vcard-hint">💡 下載後記得按「新增聯絡人」</p>
     </div>
     <div class="vcard">
-      <div class="vcard-avatar"><img src="avatar-shiba.jpg" alt="柴犬 RingDog"></div>
-      <h3>柴犬 RingDog</h3>
-      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <div class="vcard-avatar"><img src="avatar-shiba.jpg" loading="lazy" alt="響我 RingMe 柴犬 RingDog 頭像"></div>
       <a class="vcard-dl" href="ringme-shiba.vcf" download>下載聯絡卡</a>
+      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <p class="vcard-hint">💡 下載後記得按「新增聯絡人」</p>
     </div>
     <div class="vcard">
       <div class="vcard-avatar"><img src="avatar-female.jpg" loading="lazy" alt="響我 RingMe 女孩頭像"></div>
-      <h3>女孩頭像</h3>
-      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
       <a class="vcard-dl" href="ringme-female.vcf" download>下載聯絡卡</a>
+      <p class="vcard-tel">撥出電話：<b>0800-053535</b><br>來電顯示：<b>02-8192-0080</b></p>
+      <p class="vcard-hint">💡 下載後記得按「新增聯絡人」</p>
     </div>
   </div>
   <div class="notice">撥打 <b>0800-053535</b>（免付費）即可設定提醒；<b>02-8192-0080</b> 是響我 RingMe打給你時的來電顯示號碼。存進通訊錄，提醒來電一眼就認得。</div>
