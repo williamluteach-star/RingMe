@@ -102,7 +102,7 @@
    "name": "沒接到提醒電話怎麼辦？",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "響鈴未接聽時，系統會再次嘗試撥打。重要的事也可以同時設 LINE 提醒（語音＋文字訊息）雙保險。"
+    "text": "響鈴未接聽時，系統會在約 60 秒後自動重撥，同一則提醒最多撥打三次。重要的事也可以同時設 LINE 提醒（語音＋文字訊息）雙保險。"
    }
   },
   {
@@ -118,7 +118,7 @@
    "name": "LINE 方案和電話方案差在哪裡？可以同時訂嗎？",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "LINE 方案用「語音＋文字訊息」提醒，銅板價、適合日常小事；電話方案由 AI 語音真人來電叫醒，比訊息更難被忽略，適合吃藥、繳費這類不能漏的事。兩種是獨立方案、各有額度，可以只選一種或同時訂閱。"
+    "text": "LINE 方案用「語音＋文字訊息」提醒，銅板價、適合日常小事；電話方案由 RingMe 語音來電叫醒，比訊息更難被忽略，適合吃藥、繳費這類不能漏的事。兩種是獨立方案、各有額度，可以只選一種或同時訂閱。"
    }
   }
  ]
@@ -377,6 +377,7 @@
     <span class="chip">📞 中華電信電信級語音線路</span>
     <span class="chip">💚 LINE 官方帳號</span>
     <span class="chip">🇹🇼 台灣開發・個資法保護</span>
+    <span class="chip">📜 發明專利申請中（申請案號 115141466）</span>
   </div>
   <!-- 💡 William：下面這段「創辦人的話」歡迎改成你自己的故事，越真實越有力 -->
   <div class="founder-card">
@@ -563,7 +564,7 @@
   <h2 class="title">電話提醒方案</h2>
   <p class="subtitle">AI 助理來電叫醒你，比訊息更難被忽略。月繳或年繳，年繳省兩個月。先免費試用 7 天（不用信用卡）；訂閱後 7 天內不滿意，合理用量內全額退款。</p> <div class="promo-ribbon">🎁 新朋友限定：加官方 LINE 好友，訂閱首月 5 折</div>
 
-  <div class="notice" style="border-left:4px solid var(--blue);background:#EFF6FF;"><b>電話訂閱與 LINE 訂閱是兩種獨立方案</b>，可以只選一種，也可以<b>同時訂閱兩種</b>——電話方案用真人來電叫醒、LINE 方案用訊息提醒，各自有各自的額度，互不影響。</div>
+  <div class="notice" style="border-left:4px solid var(--blue);background:#EFF6FF;"><b>電話訂閱與 LINE 訂閱是兩種獨立方案</b>，可以只選一種，也可以<b>同時訂閱兩種</b>——電話方案用 RingMe 語音來電叫醒、LINE 方案用訊息提醒，各自有各自的額度，互不影響。</div>
 
   <div class="toggle-wrap">
     <div class="toggle" id="phoneToggle">
@@ -581,7 +582,7 @@
       <ul class="plan-feats">
         <li class="hi">電話提醒 15 通／月</li>
         <li>每通可連設 3 筆提醒</li>
-        <li>真人來電叫醒</li>
+        <li>RingMe 語音來電叫醒</li>
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta ghost" href="https://line.me/R/ti/p/@ringme" target="_blank">開始 7 天免費試用</a>
@@ -595,7 +596,7 @@
       <ul class="plan-feats">
         <li class="hi">電話提醒 35 通／月</li>
         <li>每通可連設 5 筆提醒</li>
-        <li>真人來電叫醒</li>
+        <li>RingMe 語音來電叫醒</li>
         <li>週期性提醒</li>
         <li>AI 解析・6 種聲音</li>
       </ul>
@@ -609,7 +610,7 @@
       <ul class="plan-feats">
         <li class="hi">電話提醒 80 通／月</li>
         <li>每通可連設 10 筆提醒</li>
-        <li>真人來電叫醒</li>
+        <li>RingMe 語音來電叫醒</li>
         <li>週期性提醒</li>
         <li>AI 解析・6 種聲音</li>
       </ul>
@@ -628,7 +629,7 @@
 <div class="wrap">
   <p class="label">也可以用 LINE</p>
   <h2 class="title">LINE 設提醒，也方便</h2>
-  <p class="subtitle">日常的小提醒，用 LINE 很方便。但重要的事，我們還是建議用電話——AI 助理真人來電叫醒你，比訊息更難被忽略。</p>
+  <p class="subtitle">日常的小提醒，用 LINE 很方便。但重要的事，我們還是建議用電話——RingMe 語音來電叫醒你，比訊息更難被忽略。</p>
 
   <div class="method line">
     <div class="method-head">
@@ -719,7 +720,7 @@
     </div>
   </div>
 
-  <div class="notice">* 每次提醒含「語音 + 文字」兩則（60 則＝30 次提醒）。需要「真人來電」叫醒的重要提醒？建議選上方電話方案。額度用完暫停，<b>從你的訂閱日起算、每月自動重置</b>——絕不超收。</div>
+  <div class="notice">* 每次提醒含「語音 + 文字」兩則（60 則＝30 次提醒）。需要「RingMe 語音來電」叫醒的重要提醒？建議選上方電話方案。額度用完暫停，<b>從你的訂閱日起算、每月自動重置</b>——絕不超收。</div>
 </div>
 
 <hr>
@@ -805,7 +806,7 @@
   </details>
   <details class="faq-item">
     <summary>沒接到提醒電話怎麼辦？</summary>
-    <p>響鈴未接聽時，系統會再次嘗試撥打。重要的事也可以同時設 LINE 提醒（語音＋文字訊息）雙保險。</p>
+    <p>響鈴未接聽時，系統會在約 60 秒後自動重撥，同一則提醒最多撥打三次。重要的事也可以同時設 LINE 提醒（語音＋文字訊息）雙保險。</p>
   </details>
   <details class="faq-item">
     <summary>如何取消訂閱？可以退款嗎？</summary>
@@ -813,7 +814,7 @@
   </details>
   <details class="faq-item">
     <summary>LINE 方案和電話方案差在哪裡？可以同時訂嗎？</summary>
-    <p>LINE 方案用「語音＋文字訊息」提醒，銅板價、適合日常小事；電話方案由 AI 語音真人來電叫醒，比訊息更難被忽略，適合吃藥、繳費這類不能漏的事。兩種是獨立方案、各有額度，可以只選一種或同時訂閱。</p>
+    <p>LINE 方案用「語音＋文字訊息」提醒，銅板價、適合日常小事；電話方案由 RingMe 語音來電叫醒，比訊息更難被忽略，適合吃藥、繳費這類不能漏的事。兩種是獨立方案、各有額度，可以只選一種或同時訂閱。</p>
   </details>
 </div>
 
@@ -850,7 +851,7 @@
     </tr>
     <tr>
       <td>隱私權政策</td>
-      <td>本服務僅蒐集提供提醒功能所必要的資訊（LINE 用戶識別碼、提醒內容、性別及年齡）。所有資料均不對外出售或提供給第三方，並依台灣個人資料保護法規定處理。</td>
+      <td>本服務僅蒐集提供提醒功能所必要的資訊：LINE 用戶識別碼、電話號碼、提醒內容、性別及年齡。為確認提醒確實送達本人，撥出時會記錄各門號的接聽秒數（保存 180 天），並於接通後短暫以語音辨識擷取開場語句，辨識文字僅用於即時判斷接聽方（本人、語音信箱或自動應答），不作其他用途。所有資料均不對外出售或提供給第三方，並依台灣個人資料保護法規定處理。</td>
     </tr>
     <tr>
       <td>資料刪除</td>
