@@ -196,6 +196,47 @@
     .hero-mascot img { position: static; width: 100%; height: auto; max-width: none; border-radius: 14px; }
   }
 
+
+  /* ── 訂閱入口（2026-10-15）── */
+  html { scroll-padding-top: 72px; }
+  .topnav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.96);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .topnav-in { max-width: 1100px; margin: 0 auto; padding: 10px 20px; display: flex;
+    align-items: center; gap: 18px; }
+  .topnav-brand { font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; margin-right: auto; }
+  .topnav-links a { color: var(--muted); font-size: 14.5px; font-weight: 600; text-decoration: none; margin-left: 18px; }
+  .topnav-links a:hover { color: var(--blue); }
+  .sub-btn { display: inline-block; background: #06C755; color: #fff !important; font-weight: 700;
+    font-size: 15px; padding: 9px 20px; border-radius: 50px; text-decoration: none;
+    box-shadow: 0 3px 12px rgba(6,199,85,.35); white-space: nowrap; }
+  .sub-btn:hover { opacity: .9; }
+  .hero-cta.sub { background: #fff; color: var(--blue-deep); box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+  .plan-sub { display: block; text-align: center; margin-top: 10px; font-size: 14px; font-weight: 700;
+    color: #06A047; text-decoration: none; }
+  .plan-sub:hover { text-decoration: underline; }
+  .sub-strip { margin: 28px auto 0; max-width: 620px; background: linear-gradient(135deg,#ECFDF3,#EFF6FF);
+    border: 1px solid #BBF7D0; border-radius: 16px; padding: 18px 20px; display: flex; align-items: center;
+    gap: 14px; flex-wrap: wrap; justify-content: space-between; }
+  .sub-strip p { margin: 0; font-weight: 700; font-size: 16px; color: var(--text); }
+  .sub-strip small { display: block; font-weight: 500; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+  .sub-strip .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sub-strip .ghost { display: inline-block; font-weight: 700; font-size: 15px; padding: 9px 18px;
+    border-radius: 50px; text-decoration: none; color: var(--blue); border: 1.5px solid var(--blue); background: #fff; }
+  .how-sub { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 18px 0 6px; }
+  .how-sub div { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; color: #374151; line-height: 1.6; }
+  .how-sub b { display: block; color: var(--text); font-size: 15.5px; margin-bottom: 2px; }
+  footer .sub-link { color: #06A047; font-weight: 700; text-decoration: none; }
+  @media(max-width:640px){
+    .topnav-links { display: none; }
+    .topnav-in { padding: 8px 14px; }
+    .sub-btn { font-size: 14px; padding: 8px 16px; }
+    .how-sub { grid-template-columns: 1fr; }
+    .sub-strip { flex-direction: column; align-items: stretch; text-align: center; }
+    .sub-strip .btns { justify-content: center; }
+    .sticky-cta .s-btn { font-size: 14px; }
+    .s-btn.s-sub { background: #06C755; color: #fff; }
+  }
+
   /* ── Wave divider ── */
   .wave { display: block; width: 100%;
     background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 60%, #3B82F6 100%); line-height: 0; }
@@ -333,6 +374,11 @@
 <body>
 
 <!-- Hero -->
+<nav class="topnav"><div class="topnav-in">
+  <a class="topnav-brand" href="#">🔔 響我 RingMe</a>
+  <span class="topnav-links"><a href="#delegate">代為提醒</a><a href="#pricing">電話方案</a><a href="#line-pricing">LINE 方案</a><a href="#faq">常見問題</a></span>
+  <a class="sub-btn" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a>
+</div></nav>
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-text">
@@ -342,7 +388,7 @@
       </div>
       <h1>再也不怕忘東忘西<br><span>AI 語音電話提醒</span></h1>
       <p>AI 語音提醒服務。LINE 傳一句話、或打通電話，時間到響我 RingMe就打給你。</p>
-      <div class="hero-promo">🎁 新朋友加 LINE 好友，首月 5 折</div> <div class="hero-ctas"> <a class="hero-cta" href="tel:0800053535">📞 撥 0800-053535 免費試</a> <a class="hero-cta line" href="https://line.me/R/ti/p/@ringme" target="_blank">加入 LINE 好友 →</a> </div>
+      <div class="hero-promo">🎁 新朋友加 LINE 好友，首月 5 折</div> <div class="hero-ctas"> <a class="hero-cta" href="tel:0800053535">📞 撥 0800-053535 免費試</a> <a class="hero-cta line" href="https://line.me/R/ti/p/@ringme" target="_blank">加入 LINE 好友 →</a> <a class="hero-cta sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a> </div>
     </div>
     <div class="hero-mascot">
       <picture>
@@ -554,6 +600,11 @@
       <p style="margin:0;font-size:14.5px;color:#555;line-height:1.7;">・費用算在<b>你的</b>方案額度裡（打電話扣電話方案、傳 LINE 扣 LINE 方案；試用期內也可用），對方完全免費。打電話對方不需要是響我的用戶；用 LINE 送則對方要加入 @ringme。<br>・打給別人最多撥 <b>2 次</b>（沒接隔 60 秒再撥一次），比提醒自己的 3 次保守，避免打擾對方。<br>・只能用來提醒親友、同事等你認識的人，而且請先讓對方知道會有這通電話；請勿用於推銷或騷擾，經檢舉將停權。同一位對象 24 小時內最多接受 8 筆代為提醒。<br>・對方若想確認來電，24 小時內回撥 0800-053535，一開始就會聽到「剛剛那通是○○請我們打給您的…」。<br>・目前支援台灣門號（手機與市話）。</p>
     </div>
   </div>
+
+  <div class="sub-strip">
+    <p>想幫爸媽設吃藥提醒？<small>訂閱後就能打給家人，對方完全免費</small></p>
+    <div class="btns"><a class="sub-btn" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a><a class="ghost" href="#pricing">看方案</a></div>
+  </div>
 </div>
 
 <hr>
@@ -597,6 +648,7 @@
     <p style="font-size:15px;color:var(--muted);max-width:520px;margin:0 auto;">
       一天不到 <b style="color:var(--text);">NT$3.3</b>，比一顆茶葉蛋還便宜。
       重要的事不用自己記、不怕漏接——交給響我 RingMe就好。</p>
+    <a class="sub-btn" style="margin-top:16px;font-size:16px;padding:12px 30px;" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱，NT$99 起</a>
   </div>
 </div>
 
@@ -609,6 +661,12 @@
   <p class="subtitle">AI 助理來電叫醒你，比訊息更難被忽略。月繳或年繳，年繳省兩個月。先免費試用 7 天（不用信用卡）；訂閱後 7 天內不滿意，合理用量內全額退款。</p> <div class="promo-ribbon">🎁 新朋友限定：加官方 LINE 好友，訂閱首月 5 折</div>
 
   <div class="notice" style="border-left:4px solid var(--blue);background:#EFF6FF;"><b>電話訂閱與 LINE 訂閱是兩種獨立方案</b>，可以只選一種，也可以<b>同時訂閱兩種</b>——電話方案用 RingMe 語音來電叫醒、LINE 方案用訊息提醒，各自有各自的額度，互不影響。</div>
+
+  <div class="how-sub">
+    <div><b>① 點「立即訂閱」</b>打開官方 LINE @ringme，「訂閱」兩個字已經幫你打好</div>
+    <div><b>② 按傳送</b>響我馬上回你方案卡片，選電話或 LINE、月繳或年繳</div>
+    <div><b>③ 信用卡結帳</b>藍新金流安全付款，付完立刻開通，LINE 會收到確認</div>
+  </div>
 
   <div class="toggle-wrap">
     <div class="toggle" id="phoneToggle">
@@ -630,6 +688,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta ghost" href="https://line.me/R/ti/p/@ringme" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1%E9%9B%BB%E8%A9%B1%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
     <!-- 暢響版 Plus（推薦） -->
     <div class="plan star">
@@ -645,6 +704,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta" href="https://line.me/R/ti/p/@ringme" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1%E9%9B%BB%E8%A9%B1%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
     <!-- 全響版 Max -->
     <div class="plan">
@@ -659,6 +719,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta ghost" href="https://line.me/R/ti/p/@ringme" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1%E9%9B%BB%E8%A9%B1%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
   </div>
 
@@ -722,7 +783,7 @@
 
 
 <!-- 定價：LINE 訂閱 -->
-<div class="wrap">
+<div class="wrap" id="line-pricing">
   <p class="label" style="color:#06A047;">💬 LINE 訂閱</p>
   <h2 class="title">LINE 提醒方案</h2>
   <p class="subtitle">日常的小提醒，用 LINE 就夠——銅板價入門，年繳再省兩個月。先免費試用 7 天（不用信用卡）；訂閱後 7 天內不滿意，合理用量內全額退款。</p>
@@ -748,6 +809,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta ghost" href="https://lin.ee/QuY2XZL" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1LINE%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
     <!-- LINE 暢訊（最受歡迎） -->
     <div class="plan star" style="border-color:#06C755;">
@@ -762,6 +824,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta" style="background:#06C755;" href="https://lin.ee/QuY2XZL" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1LINE%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
     <!-- LINE 全訊 -->
     <div class="plan">
@@ -775,6 +838,7 @@
         <li>AI 解析・6 種聲音</li>
       </ul>
       <a class="plan-cta ghost" href="https://lin.ee/QuY2XZL" target="_blank">開始 7 天免費試用</a>
+      <a class="plan-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1LINE%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">或直接訂閱 →</a>
     </div>
   </div>
 
@@ -807,6 +871,12 @@
     <a class="plan-cta" style="background:#06C755;max-width:280px;margin:0 auto;display:inline-block;" href="https://lin.ee/QuY2XZL" target="_blank">＋ 加入官方 LINE 好友</a>
     <p style="font-size:12.5px;color:#999;margin-top:10px;">或在 LINE 搜尋 ID：<b>@ringme</b></p>
   </div>
+
+  <div class="sub-strip">
+    <p>已經加好友了？直接訂閱<small>在 LINE 傳「訂閱」也可以，隨時能升級或取消</small></p>
+    <div class="btns"><a class="sub-btn" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a><a class="ghost" href="#pricing">看方案</a></div>
+  </div>
+
 </div>
 
 <hr>
@@ -819,6 +889,7 @@
   <div class="pay-grid" style="max-width:340px">
     <div class="pay-card"><span class="pay-icon">💳</span>信用卡（定期定額）</div>
   </div>
+  <p style="text-align:center;margin-top:18px;"><a class="sub-btn" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a></p>
 </div>
 
 <hr>
@@ -843,6 +914,10 @@
   <details class="faq-item">
     <summary>響我 RingMe 是什麼？怎麼使用？</summary>
     <p>響我 RingMe 是專為台灣打造的 AI 語音提醒服務。用 LINE 傳一句話（官方帳號 @ringme），或撥打免付費電話 0800-053535 說出要提醒的事，時間到由 AI 打電話或傳 LINE 提醒你。不用下載 App、不用學操作。</p>
+  </details>
+  <details class="faq-item">
+    <summary>怎麼訂閱？要下載 App 嗎？</summary>
+    <p>不用下載 App。點本頁任何一個「<b>立即訂閱</b>」，會打開官方 LINE @ringme 並幫你打好「訂閱」，按傳送就會收到方案卡片；也可以直接在 LINE 傳「訂閱」，或點聊天室下方選單的「立即訂閱」。選好電話或 LINE 方案、月繳或年繳，用信用卡結帳就開通。還沒加好友的話，先加好友就有 7 天免費試用。<a href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener" style="color:#06A047;font-weight:700;">現在訂閱 →</a></p>
   </details>
   <details class="faq-item">
     <summary>提醒設錯了，可以取消或修改嗎？</summary>
@@ -924,7 +999,7 @@
   </table>
 </div>
 
-<footer>© 2026 響我 RingMe · 純線上服務，無實體店面 · 客服：LINE @ringme · ringme0535@gmail.com</footer>
+<footer><a class="sub-link" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a> · © 2026 響我 RingMe · 純線上服務，無實體店面 · 客服：LINE @ringme · ringme0535@gmail.com</footer>
 
 <script>
 const M = { p: ['NT$99','NT$199','NT$399'], n: ['','',''] };
@@ -956,10 +1031,33 @@ function setL(t) {
 
 </script>
 
+<!-- 電腦版點「立即訂閱」：LINE 連結在電腦上打不開聊天室，改跳 QR 說明（2026-10-15）-->
+<div id="subModal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.55);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#fff;border-radius:18px;max-width:380px;width:100%;padding:26px 24px;text-align:center;position:relative;">
+    <button onclick="document.getElementById('subModal').style.display='none'" aria-label="關閉" style="position:absolute;right:12px;top:8px;border:none;background:none;font-size:26px;color:#999;cursor:pointer;">×</button>
+    <p style="font-weight:800;font-size:20px;margin-bottom:6px;">用手機掃描，馬上訂閱</p>
+    <p style="font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:12px;text-align:left;display:inline-block;">① 用手機 LINE 掃 QR，加入 <b>@ringme</b><br>② 在聊天室傳「<b>訂閱</b>」，或點下方選單「立即訂閱」<br>③ 選方案、信用卡結帳就開通</p>
+    <img src="line-qr.jpg" alt="響我 RingMe 官方 LINE QR Code" style="width:190px;height:190px;border-radius:14px;border:1px solid var(--border);">
+    <p style="font-size:12.5px;color:#999;margin-top:8px;">或在 LINE 搜尋 ID：<b>@ringme</b></p>
+  </div>
+</div>
+<script>
+(function () {
+  var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  if (mobile) return;
+  var m = document.getElementById('subModal');
+  document.querySelectorAll('a[href^="https://line.me/R/oaMessage"]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); m.style.display = 'flex'; });
+  });
+  m.addEventListener('click', function (e) { if (e.target === m) m.style.display = 'none'; });
+})();
+</script>
+
 <!-- 手機版固定底欄 CTA -->
 <div class="sticky-cta">
   <a class="s-btn s-phone" href="tel:0800053535">📞 免費試打</a>
-  <a class="s-btn s-plan" href="#pricing">看方案・免費試 7 天</a>
+  <a class="s-btn s-plan" href="#pricing">看方案</a>
+  <a class="s-btn s-sub" href="https://line.me/R/oaMessage/%40ringme/?%E8%A8%82%E9%96%B1" target="_blank" rel="noopener">立即訂閱</a>
 </div>
 </body>
 </html>
